@@ -153,4 +153,172 @@ if submitted:
 
                         <div style="margin-bottom: 35px;">
                             <h4 class="section-title">💡 3. 도구 최적화 시 기대효과</h4>
-                            <div class="row-box"><div class="label">순
+                            <div class="row-box"><div class="label">순위 회복 효과 :</div><div class="value">{effect}</div></div>
+                        </div>
+
+                        <div style="margin-bottom: 0px;">
+                            <h4 class="section-title">⚔️ 4. 반경 500m 상권 경쟁 진단</h4>
+                            <div class="row-box"><div class="label">경쟁 매장 :</div><div class="value" style="color: #e53e3e; font-weight: 800;">{competitor_count} <span style="font-size: 12px; color:#718096;">(AI 자동 추정)</span></div></div>
+                            <div class="row-box"><div class="label">상권 내 순위 진단 :</div><div class="value">{competition}</div></div>
+                        </div>
+                    </div>
+                    <button onclick="downloadImage1()" style="margin-top: 30px; padding: 15px 30px; font-size: 16px; font-weight: bold; color: #fff; background-color: #2d3748; border: none; border-radius: 8px; cursor: pointer;">
+                        📸 플레이스 진단 리포트 이미지(.png) 다운로드
+                    </button>
+                </div>
+                <script>
+                function downloadImage1() {{
+                    const element = document.getElementById('report-card-1');
+                    html2canvas(element, {{scale: 2, backgroundColor: "#ffffff", useCORS: true}}).then(canvas => {{
+                        let link = document.createElement('a');
+                        link.download = '{place_name}_플레이스_진단리포트.png';
+                        link.href = canvas.toDataURL();
+                        link.click();
+                    }});
+                }}
+                </script>
+                """
+
+                # ---------------------------------------------------------
+                # [HTML] 평판 진단 리포트 (제목에서 2일차 제거)
+                # ---------------------------------------------------------
+                html_report_2 = f"""
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+                <div style="padding: 10px; display: flex; flex-direction: column; align-items: center; background-color: #f8fafc;">
+                    <style>
+                        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+                        * {{ font-family: 'Pretendard', sans-serif; word-break: keep-all; overflow-wrap: break-word; line-height: 1.5; }}
+                        .section-title-2 {{ color: #1e3a8a; font-size: 18px; font-weight: 800; margin-bottom: 8px; }}
+                        .ad-list {{ list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr; gap: 8px; }}
+                        .ad-list li {{ background: #ffffff; padding: 10px 15px; border-radius: 8px; color: #0369a1; font-weight: 700; font-size: 14.5px; border: 1px solid #bae6fd; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }}
+                        .improve-box {{ background: #f0fdf4; padding: 15px 20px; border-radius: 8px; border: 1px dashed #4ade80; margin-top: 10px; margin-bottom: 25px; }}
+                        .improve-title {{ color: #166534; margin-top: 0; margin-bottom: 6px; font-size: 15px; font-weight: 800; display: flex; align-items: center; gap: 5px; }}
+                        .improve-text {{ color: #15803d; margin: 0; font-weight: 500; font-size: 14.5px; }}
+                        .report-page {{ width: 100%; max-width: 800px; padding: 45px 40px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 15px; box-shadow: 0px 10px 25px rgba(0,0,0,0.05); margin-bottom: 30px; }}
+                    </style>
+                    
+                    <div id="report-page-1" class="report-page">
+                        <h1 style="text-align: center; color: #1e40af; font-size: 28px; font-weight: 900; margin-bottom: 5px;">📝 맞춤형 평판 진단 리포트 (1/2)</h1>
+                        <p style="text-align: center; color: #64748b; margin-bottom: 30px; font-size: 16px;">대상 매장: <strong style="color: #0f172a;">{place_name}</strong></p>
+
+                        <div style="background: #fffbeb; border: 1px solid #fde68a; padding: 20px; border-radius: 12px; margin-bottom: 30px;">
+                            <h4 style="color: #b45309; margin-top: 0; margin-bottom: 12px; font-size: 17px; font-weight: 800;">📌 네이버 플레이스 상위 노출 핵심 지표</h4>
+                            <p style="color: #92400e; font-weight: 600; margin-bottom: 12px; font-size: 14.5px;">상위 노출은 다음 4가지 지표로 결정되며, 체계적인 관리가 필수입니다.</p>
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                <span style="background: white; padding: 6px 14px; border-radius: 20px; border: 1px solid #fcd34d; color: #d97706; font-weight: 800; font-size: 13.5px;">① 리뷰 활성도</span>
+                                <span style="background: white; padding: 6px 14px; border-radius: 20px; border: 1px solid #fcd34d; color: #d97706; font-weight: 800; font-size: 13.5px;">② 키워드 적합도</span>
+                                <span style="background: white; padding: 6px 14px; border-radius: 20px; border: 1px solid #fcd34d; color: #d97706; font-weight: 800; font-size: 13.5px;">③ 최신성 지수</span>
+                                <span style="background: white; padding: 6px 14px; border-radius: 20px; border: 1px solid #fcd34d; color: #d97706; font-weight: 800; font-size: 13.5px;">④ 체류 시간</span>
+                            </div>
+                        </div>
+
+                        <div style="border-left: 5px solid #3b82f6; padding-left: 15px;">
+                            <h3 class="section-title-2">1. 방문자 리뷰 진단 및 문제점</h3>
+                            <div style="color: #334155; font-size: 15px;">{v_diag}</div>
+                        </div>
+                        <div class="improve-box">
+                            <h4 class="improve-title">✨ 꾸준한 답글 관리 시 개선점</h4>
+                            <div class="improve-text">{v_improve}</div>
+                        </div>
+
+                        <div style="margin-bottom: 30px; background: #f1f5f9; padding: 20px 25px; border-radius: 10px;">
+                            <h3 style="color: #0f172a; font-size: 16px; font-weight: 800; margin-top: 0; margin-bottom: 12px;">🤖 AI 추천 고객 감동 답글 예시</h3>
+                            <div style="color: #475569; font-weight: 500; font-size: 14.5px; line-height: 1.6;">{a_reply}</div>
+                        </div>
+
+                        <div style="border-left: 5px solid #10b981; padding-left: 15px;">
+                            <h3 style="color: #064e3b; font-size: 18px; font-weight: 800; margin-bottom: 8px;">2. 블로그 리뷰 분석 및 문제점</h3>
+                            <div style="color: #334155; font-size: 15px;">{b_diag}</div>
+                        </div>
+                        <div class="improve-box" style="margin-bottom: 0;">
+                            <h4 class="improve-title" style="color: #065f46;">✨ 양질의 블로그 리뷰 증가 시 개선점</h4>
+                            <div class="improve-text" style="color: #065f46;">{b_improve}</div>
+                        </div>
+                    </div>
+                    
+                    <div id="report-page-2" class="report-page">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 30px;">
+                            <h2 style="color: #1e40af; font-size: 22px; font-weight: 900; margin: 0;">💡 마케팅 솔루션 제안서 (2/2)</h2>
+                            <p style="color: #64748b; font-size: 14px; margin: 0;">대상 매장: <strong style="color: #0f172a;">{place_name}</strong></p>
+                        </div>
+
+                        <div style="background: #e0f2fe; padding: 25px; border-radius: 15px; border: 2px solid #7dd3fc; margin-bottom: 30px;">
+                            <h3 style="color: #0284c7; font-size: 20px; font-weight: 900; margin-top: 0; margin-bottom: 15px; text-align: center;">💎 위드멤버 마케팅 솔루션 10가지</h3>
+                            <ul class="ad-list">
+                                <li>1. 네이버 플레이스 세팅 및 관리 (SEO 최적화)</li>
+                                <li>2. 업체에 맞는 최적화 블로그 후보 검수 및 추천 리포트 제공</li>
+                                <li>3. 매장 또는 업체 홍보용 영상 콘텐츠 제작</li>
+                                <li>4. 제작 후 인스타그램 릴스, 유튜브 쇼츠 배포</li>
+                                <li>5. Google Business Profile 신규 등록 및 리뷰 작성 10건</li>
+                                <li>6. 카카오맵 리뷰 작성 10건</li>
+                                <li>7. 광고 운영 결과에 대한 월간 리포트 제공</li>
+                                <li>8. 네이버 플레이스 순위, 노출 변화 모니터링 및 유지 관리</li>
+                                <li>9. 월 2회 기본 수정 (사진, 정보, 새소식)</li>
+                                <li>10. Google, 카카오맵 정보 유지 및 관리</li>
+                            </ul>
+                            
+                            <div style="margin-top: 20px; background-color: #ffffff; padding: 18px; border-radius: 10px; border: 2px dashed #38bdf8; text-align: center;">
+                                <span style="color: #94a3b8; font-size: 18px; font-weight: 600; text-decoration: line-through;">400만원(정상가)</span>
+                                <strong style="color: #e11d48; font-size: 24px; font-weight: 900; margin-left: 12px;">➔ 250만원</strong>
+                                <span style="color: #e11d48; font-size: 18px; font-weight: 700;"> (프로모션가)</span>
+                            </div>
+                        </div>
+
+                        <div style="background: #eff6ff; padding: 25px; border-radius: 10px; border: 1px solid #bfdbfe; text-align: center;">
+                            <h3 style="color: #1e40af; font-weight: 800; margin-top:0; margin-bottom: 12px;">🚀 솔루션 적용 시 3개월 후 예상 매출</h3>
+                            
+                            <div style="font-size: 22px; font-weight: 800; color: #1e293b; margin-bottom: 25px; line-height: 1.5;">
+                                위드멤버의 10가지 마케팅 솔루션 적용 시 3개월 후<br>
+                                현재 대비 약 <span style="color: red; font-weight: 900; font-size: 28px;">{p_predict}</span> 상승 예상
+                            </div>
+                            
+                            <div style="font-size: 17px; font-weight: 800; color: #1e293b; line-height: 1.6; padding-top: 20px; border-top: 1px dashed #93c5fd;">
+                                {conclusion}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 15px; margin-top: 10px; flex-wrap: wrap; justify-content: center;">
+                        <button onclick="downloadPage2()" style="padding: 15px 25px; font-size: 16px; font-weight: 800; color: #fff; background-color: #059669; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                            📸 평판 진단 리포트 다운로드
+                        </button>
+                        <button onclick="downloadPage3()" style="padding: 15px 25px; font-size: 16px; font-weight: 800; color: #fff; background-color: #2563eb; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                            📸 마케팅 솔루션 제안서 다운로드
+                        </button>
+                    </div>
+                </div>
+                
+                <script>
+                function downloadPage2() {{
+                    const element = document.getElementById('report-page-1');
+                    html2canvas(element, {{ scale: 2, backgroundColor: "#ffffff", useCORS: true }}).then(canvas => {{
+                        let link = document.createElement('a');
+                        link.download = '{place_name}_평판진단리포트.png';
+                        link.href = canvas.toDataURL();
+                        link.click();
+                    }});
+                }}
+                
+                function downloadPage3() {{
+                    const element = document.getElementById('report-page-2');
+                    html2canvas(element, {{ scale: 2, backgroundColor: "#ffffff", useCORS: true }}).then(canvas => {{
+                        let link = document.createElement('a');
+                        link.download = '{place_name}_솔루션제안서.png';
+                        link.href = canvas.toDataURL();
+                        link.click();
+                    }});
+                }}
+                </script>
+                """
+
+                # [화면 출력] 탭 메뉴 명칭에서도 일자 제거
+                tab1, tab2 = st.tabs(["📑 플레이스 진단 리포트", "📑 평판 분석 및 매출 성장 제안서"])
+                
+                with tab1:
+                    components.html(html_report_1, height=1150, scrolling=True)
+                
+                with tab2:
+                    components.html(html_report_2, height=2300, scrolling=True)
+
+            except Exception as e:
+                st.error(f"분석 중 오류 발생: {e}")
