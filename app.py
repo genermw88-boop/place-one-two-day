@@ -61,7 +61,7 @@ if submitted:
             
             prompt1 = f"""
             너는 10년 경력의 네이버 플레이스 마케팅 전문 컨설턴트야.
-            아래 7개의 구분자(###)를 사용하여, 특수기호나 HTML 태그 없이 오직 전문적인 '순수 텍스트'로만 간결하게 작성해.
+            아래 6개의 구분자(###)를 사용하여, 특수기호나 HTML 태그 없이 오직 전문적인 '순수 텍스트'로만 간결하게 작성해.
 
             [입력 데이터]
             - 플레이스 등록명: {place_name}
@@ -86,9 +86,6 @@ if submitted:
 
             ###COMPETITION###
             (추정한 경쟁 매장 수 대비 현재 리뷰 수준을 고려하여, 상권 내 순위가 하위 몇 % 수준인지 등 사장님께 위기감을 주는 내용 1~2줄)
-
-            ###REVIEW_PROBLEM###
-            (현재 리뷰 수치 진단 및 2일 차에 정밀 분석 솔루션을 주겠다는 안내를 1~2줄로 작성)
             """
 
             # ==========================================
@@ -152,8 +149,7 @@ if submitted:
                 problem = get_val1("###PROBLEM###", "###EFFECT###")
                 effect = get_val1("###EFFECT###", "###COMPETITOR_COUNT###")
                 competitor_count = get_val1("###COMPETITOR_COUNT###", "###COMPETITION###")
-                competition = get_val1("###COMPETITION###", "###REVIEW_PROBLEM###")
-                review_problem = get_val1("###REVIEW_PROBLEM###")
+                competition = get_val1("###COMPETITION###")
 
                 # --- 2일 차 결과 파싱 ---
                 def get_val2(tag, next_tag=None):
@@ -209,15 +205,10 @@ if submitted:
                             <div class="row-box"><div class="label">순위 회복 효과 :</div><div class="value">{effect}</div></div>
                         </div>
 
-                        <div style="margin-bottom: 35px;">
+                        <div style="margin-bottom: 0px;">
                             <h4 class="section-title">⚔️ 4. 반경 500m 상권 경쟁 진단</h4>
                             <div class="row-box"><div class="label">경쟁 매장 :</div><div class="value" style="color: #e53e3e; font-weight: 800;">{competitor_count} <span style="font-size: 12px; color:#718096;">(AI 자동 추정)</span></div></div>
                             <div class="row-box"><div class="label">상권 내 순위 진단 :</div><div class="value">{competition}</div></div>
-                        </div>
-
-                        <div style="background-color: #f7fafc; padding: 20px; border-radius: 8px; border: 1px dashed #cbd5e0;">
-                            <h4 class="section-title" style="border:none; margin-bottom:10px;">🚀 2일 차 예고: 리뷰/평판 정밀 분석</h4>
-                            <div class="value" style="font-size:14px;">{review_problem}</div>
                         </div>
                     </div>
                     <button onclick="downloadImage1()" style="margin-top: 30px; padding: 15px 30px; font-size: 16px; font-weight: bold; color: #fff; background-color: #2d3748; border: none; border-radius: 8px; cursor: pointer;">
@@ -375,7 +366,7 @@ if submitted:
                 tab1, tab2 = st.tabs(["📑 1일 차: 플레이스 진단 리포트", "📑 2일 차: 평판 분석 및 매출 성장 제안서"])
                 
                 with tab1:
-                    components.html(html_report_1, height=1350, scrolling=True)
+                    components.html(html_report_1, height=1250, scrolling=True)
                 
                 with tab2:
                     components.html(html_report_2, height=2300, scrolling=True)
