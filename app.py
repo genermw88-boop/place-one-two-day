@@ -17,7 +17,7 @@ st.set_page_config(page_title="위드멤버 종합 진단기", page_icon="📊",
 st.title("📊 위드멤버 종합 플레이스 & 리뷰 진단기")
 st.markdown("네이버 플레이스 도구 누락 현상과 리뷰 평판 및 매출 성장을 한 번에 정밀 진단합니다.")
 
-# 2. 통합 폼 입력
+# 2. 통합 폼 입력 (중복되는 항목을 하나로 병합)
 with st.form("comprehensive_diagnostic_form"):
     st.subheader("📋 1. 매장 종합 정보")
     col1, col2 = st.columns(2)
@@ -46,11 +46,13 @@ if submitted:
     if not place_name or not target_area or not main_menu:
         st.error("매장명, 타겟 지역명, 핵심 메뉴는 필수입니다.")
     else:
-        with st.spinner("AI가 데이터를 종합 분석 중입니다..."):
+        with st.spinner("AI가 네이버 도구 누락 여부와 리뷰 평판 데이터를 종합 분석 중입니다. 잠시만 기다려주세요..."):
             
             model = genai.GenerativeModel('gemini-2.5-flash')
             
-            # [기존 로직 1] 플레이스 진단 데이터 준비
+            # ==========================================
+            # 플레이스 진단 데이터 및 프롬프트 준비 (원본 복구)
+            # ==========================================
             def get_status_html(is_used):
                 return '<span style="color: #38a169; font-weight: 800;">등록</span>' if is_used else '<span style="color: #e53e3e; font-weight: 800;">미등록</span>'
 
@@ -60,27 +62,71 @@ if submitted:
             prompt1 = f"""
             너는 10년 경력의 네이버 플레이스 마케팅 전문 컨설턴트야.
             아래 6개의 구분자(###)를 사용하여, 특수기호나 HTML 태그 없이 오직 전문적인 '순수 텍스트'로만 간결하게 작성해.
-            ###SEO_SCORE###, ###SEO_RANK###, ###PROBLEM###, ###EFFECT###, ###COMPETITOR_COUNT###, ###COMPETITION### 순서대로 작성해.
 
             [입력 데이터]
             - 플레이스 등록명: {place_name}
             - 상권: {target_area} / 업종: {main_menu}
             - 네이버 공식 도구 세팅 현황: {tool_status_text}
             - 리뷰: 방문자 {visit_reviews}개 / 블로그 {blog_reviews}개
+
+            ###SEO_SCORE###
+            (예: 35점)
+
+            ###SEO_RANK###
+            (예: 6~8페이지)
+
+            ###PROBLEM###
+            (현재 도구 세팅 현황({tool_status_text})을 근거로, '미등록'된 도구들 때문에 네이버 알고리즘 가산점을 못 받고 있으며 이로 인해 순위 경쟁에서 심각하게 밀리고 있다는 점을 1~2줄로 진단해)
+
+            ###EFFECT###
+            (미등록 도구들을 즉시 등록하여 알고리즘 가산점을 확보했을 때, 검색 노출 순위가 회복되고 고객 유입이 얼마나 상승할지 기대 효과를 1~2줄로 작성해)
+
+            ###COMPETITOR_COUNT###
+            ('{target_area}' 지역 내 '{main_menu}' 업종의 치열함을 고려해, 500m 반경 내 예상 경쟁 매장 수를 AI 알고리즘으로 추정해서 숫자와 '개' 단위만 출력해. 예: 약 45개)
+
+            ###COMPETITION###
+            (추정한 경쟁 매장 수 대비 현재 리뷰 수준을 고려하여, 상권 내 순위가 하위 몇 % 수준인지 등 사장님께 위기감을 주는 내용 1~2줄)
             """
 
-            # [기존 로직 2] 리뷰 평판 및 매출 예측 준비
+            # ==========================================
+            # 리뷰 평판 및 매출 예측 프롬프트 준비 (원본 복구)
+            # ==========================================
             prompt2 = f"""
             너는 대한민국 최고의 소상공인 마케팅 전략가야.
             아래 데이터를 바탕으로 사장님께 드리는 '리뷰 평판 진단 리포트'를 작성해.
             HTML 태그를 적절히 사용해서 시각적으로 강조해줘. 오직 구분자(###)를 사용해서 답해.
-
-            ###VISIT_DIAG###, ###VISIT_IMPROVE###, ###AI_REPLY###, ###BLOG_DIAG###, ###BLOG_IMPROVE###, ###PROFIT_PREDICT###, ###CONCLUSION### 순서대로 작성해.
+            모든 문장은 쓸데없이 여러 줄로 나누지 말고, 최대한 꽉 찬 느낌이 들도록 핵심만 간결하게 한두 문단으로 작성해.
 
             [입력 데이터]
             - 매장명: {place_name} ({main_menu})
             - 방문자 리뷰: {visit_reviews}개
             - 블로그 리뷰: {blog_reviews}개
+
+            ###VISIT_DIAG###
+            방문자 리뷰 수에 대한 객관적 진단과 문제점을 간결하게 작성. 
+            (주의: 본문에 현재 리뷰 수를 언급할 때 반드시 <span style="color: red; font-weight: bold;">{visit_reviews}개</span> 로 작성해라)
+
+            ###VISIT_IMPROVE###
+            방문자 리뷰에 꾸준히 답글을 달았을 때 얻을 수 있는 개선점 및 기대효과를 줄바꿈 없이 하나의 문단으로 꽉 차게 작성해.
+
+            ###AI_REPLY###
+            사장님이 실제 사용할 수 있는 방문자 리뷰 답글 예시 2개. 
+            (주의: 1번 예시와 2번 예시 사이에 반드시 <br><br><br> 를 넣어 간격을 아주 넓게 띄워라)
+
+            ###BLOG_DIAG###
+            블로그 리뷰 데이터의 문제점 분석을 간결하게 작성.
+            (주의: 본문에 현재 블로그 리뷰 수를 언급할 때 반드시 <span style="color: red; font-weight: bold;">{blog_reviews}개</span> 로 작성해라)
+
+            ###BLOG_IMPROVE###
+            블로그 리뷰 수가 증가하고 퀄리티가 높아졌을 때 얻을 수 있는 개선점 및 기대효과를 줄바꿈 없이 하나의 문단으로 꽉 차게 작성해.
+
+            ###PROFIT_PREDICT###
+            위드멤버의 10가지 마케팅 솔루션 적용 시 3개월 후 예상 매출 상승 범위를 현재 매장 상황에 맞게 AI가 진단해서 오직 "OO% ~ OO%" 형태의 퍼센트 수치만 출력해. (다른 설명 절대 금지)
+            출력 예시: 30% ~ 45%
+
+            ###CONCLUSION###
+            아래 문장을 베이스로 하되, 매장명({place_name}) 부분은 <span style="color: red; font-weight: bold;">{place_name}</span> 로 처리하고, 두 문장 사이에 <br>을 넣어 2줄로 출력해라.
+            출력 예시: 본 마케팅 패키지는 <span style="color: red; font-weight: bold;">{place_name}</span>의 낮은 온라인 인지도를 극복하고<br>압도적인 경쟁력을 확보하기 위한 필수적인 성공 전략입니다.
             """
 
             try:
@@ -91,20 +137,13 @@ if submitted:
                 response2 = model.generate_content(prompt2)
                 res_text2 = response2.text
 
-                # 결과 파싱 함수
+                # --- 결과 파싱 ---
                 def get_val1(tag, next_tag=None):
                     try:
                         part = res_text1.split(tag)[1]
                         return part.split(next_tag)[0].strip() if next_tag else part.strip()
-                    except: return "분석 중..."
+                    except: return "데이터 분석 중..."
 
-                def get_val2(tag, next_tag=None):
-                    try:
-                        p = res_text2.split(tag)[1]
-                        return p.split(next_tag)[0].strip() if next_tag else p.strip()
-                    except: return "분석 중..."
-
-                # 1번 리포트 데이터
                 score = get_val1("###SEO_SCORE###", "###SEO_RANK###")
                 rank = get_val1("###SEO_RANK###", "###PROBLEM###")
                 problem = get_val1("###PROBLEM###", "###EFFECT###")
@@ -112,7 +151,12 @@ if submitted:
                 competitor_count = get_val1("###COMPETITOR_COUNT###", "###COMPETITION###")
                 competition = get_val1("###COMPETITION###")
 
-                # 2번 리포트 데이터
+                def get_val2(tag, next_tag=None):
+                    try:
+                        p = res_text2.split(tag)[1]
+                        return p.split(next_tag)[0].strip() if next_tag else p.strip()
+                    except: return "분석 중..."
+
                 v_diag = get_val2("###VISIT_DIAG###", "###VISIT_IMPROVE###")
                 v_improve = get_val2("###VISIT_IMPROVE###", "###AI_REPLY###")
                 a_reply = get_val2("###AI_REPLY###", "###BLOG_DIAG###")
@@ -121,9 +165,13 @@ if submitted:
                 p_predict = get_val2("###PROFIT_PREDICT###", "###CONCLUSION###")
                 conclusion = get_val2("###CONCLUSION###")
 
-                # ---------------------------------------------------------
-                # [HTML] 플레이스 진단 리포트 (제목에서 1일차 제거)
-                # ---------------------------------------------------------
+                # ==========================================
+                # HTML 디자인 리포트 생성
+                # ==========================================
+                
+                st.success("✅ 종합 분석이 완료되었습니다. 아래에서 결과를 확인하세요.")
+
+                # [1] 플레이스 진단 리포트 HTML
                 html_report_1 = f"""
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
                 <div style="padding: 10px; display: flex; flex-direction: column; align-items: center; font-family: 'Malgun Gothic', sans-serif;">
@@ -179,9 +227,7 @@ if submitted:
                 </script>
                 """
 
-                # ---------------------------------------------------------
-                # [HTML] 평판 진단 리포트 (제목에서 2일차 제거)
-                # ---------------------------------------------------------
+                # [2] 리뷰 평판 및 매출 예측 HTML
                 html_report_2 = f"""
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
                 <div style="padding: 10px; display: flex; flex-direction: column; align-items: center; background-color: #f8fafc;">
@@ -194,6 +240,8 @@ if submitted:
                         .improve-box {{ background: #f0fdf4; padding: 15px 20px; border-radius: 8px; border: 1px dashed #4ade80; margin-top: 10px; margin-bottom: 25px; }}
                         .improve-title {{ color: #166534; margin-top: 0; margin-bottom: 6px; font-size: 15px; font-weight: 800; display: flex; align-items: center; gap: 5px; }}
                         .improve-text {{ color: #15803d; margin: 0; font-weight: 500; font-size: 14.5px; }}
+                        
+                        /* A4 용지 스타일의 카드 컨테이너 */
                         .report-page {{ width: 100%; max-width: 800px; padding: 45px 40px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 15px; box-shadow: 0px 10px 25px rgba(0,0,0,0.05); margin-bottom: 30px; }}
                     </style>
                     
@@ -311,11 +359,13 @@ if submitted:
                 </script>
                 """
 
-                # [화면 출력] 탭 메뉴 명칭에서도 일자 제거
+                # ==========================================
+                # 화면 출력 (Streamlit Tabs 기능 활용)
+                # ==========================================
                 tab1, tab2 = st.tabs(["📑 플레이스 진단 리포트", "📑 평판 분석 및 매출 성장 제안서"])
                 
                 with tab1:
-                    components.html(html_report_1, height=1150, scrolling=True)
+                    components.html(html_report_1, height=1250, scrolling=True)
                 
                 with tab2:
                     components.html(html_report_2, height=2300, scrolling=True)
