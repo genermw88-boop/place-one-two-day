@@ -304,11 +304,6 @@ if submitted:
                                 <li>9. 월 2회 기본 수정 (사진, 정보, 새소식)</li>
                                 <li>10. Google, 카카오맵 정보 유지 및 관리</li>
                             </ul>
-                            
-                            <div style="margin-top: 20px; background-color: #ffffff; padding: 18px; border-radius: 10px; border: 2px dashed #38bdf8; text-align: center;">
-                            </div>
-                        </div>
-
                         <div style="background: #eff6ff; padding: 25px; border-radius: 10px; border: 1px solid #bfdbfe; text-align: center;">
                             <h3 style="color: #1e40af; font-weight: 800; margin-top:0; margin-bottom: 12px;">🚀 솔루션 적용 시 3개월 후 예상 매출</h3>
                             
