@@ -306,7 +306,6 @@ if submitted:
                             </ul>
                             
                             <div style="margin-top: 20px; background-color: #ffffff; padding: 18px; border-radius: 10px; border: 2px dashed #38bdf8; text-align: center;">
-                                <span style="color: #e11d48; font-size: 18px; font-weight: 700;"> (프로모션가)</span>
                             </div>
                         </div>
 
