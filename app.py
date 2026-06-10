@@ -51,7 +51,7 @@ if submitted:
             model = genai.GenerativeModel('gemini-2.5-flash')
             
             # ==========================================
-            # 플레이스 진단 데이터 및 프롬프트 준비 (원본 복구)
+            # 플레이스 진단 데이터 및 프롬프트 준비
             # ==========================================
             def get_status_html(is_used):
                 return '<span style="color: #38a169; font-weight: 800;">등록</span>' if is_used else '<span style="color: #e53e3e; font-weight: 800;">미등록</span>'
@@ -69,8 +69,8 @@ if submitted:
             - 네이버 공식 도구 세팅 현황: {tool_status_text}
             - 리뷰: 방문자 {visit_reviews}개 / 블로그 {blog_reviews}개
 
-            ###SEO_SCORE###
-            (예: 35점)
+            ###ISSUE_DIAGNOSIS###
+            (리뷰 활성도, 키워드 부재, 사진 빈도, 새소식 업데이트, 리뷰 전환율 등 5가지 핵심 포인트를 기반으로 현재 플레이스 이슈 진단을 1~2줄로 요약해)
 
             ###SEO_RANK###
             (예: 6~8페이지)
@@ -89,7 +89,7 @@ if submitted:
             """
 
             # ==========================================
-            # 리뷰 평판 및 매출 예측 프롬프트 준비 (원본 복구)
+            # 리뷰 평판 및 매출 예측 프롬프트 준비
             # ==========================================
             prompt2 = f"""
             너는 대한민국 최고의 소상공인 마케팅 전략가야.
@@ -110,7 +110,7 @@ if submitted:
             방문자 리뷰에 꾸준히 답글을 달았을 때 얻을 수 있는 개선점 및 기대효과를 줄바꿈 없이 하나의 문단으로 꽉 차게 작성해.
 
             ###AI_REPLY###
-            사장님이 실제 사용할 수 있는 방문자 리뷰 답글 예시 2개. 
+            사장님이 실제 사용할 수 있는 방문자 리뷰 답글 예시 2개. (반드시 정중한 형태의 존댓말로 작성할 것)
             (주의: 1번 예시와 2번 예시 사이에 반드시 <br><br><br> 를 넣어 간격을 아주 넓게 띄워라)
 
             ###BLOG_DIAG###
@@ -144,7 +144,7 @@ if submitted:
                         return part.split(next_tag)[0].strip() if next_tag else part.strip()
                     except: return "데이터 분석 중..."
 
-                score = get_val1("###SEO_SCORE###", "###SEO_RANK###")
+                issue_diagnosis = get_val1("###ISSUE_DIAGNOSIS###", "###SEO_RANK###")
                 rank = get_val1("###SEO_RANK###", "###PROBLEM###")
                 problem = get_val1("###PROBLEM###", "###EFFECT###")
                 effect = get_val1("###EFFECT###", "###COMPETITOR_COUNT###")
@@ -187,9 +187,9 @@ if submitted:
                         <p style="text-align: center; color: #718096; margin-bottom: 40px;">대상 매장: <strong>{place_name}</strong></p>
                         
                         <div class="highlight-box">
-                            <h4 class="section-title" style="border:none; color:#2b6cb0;">1. 현재 점수 및 예상 순위</h4>
+                            <h4 class="section-title" style="border:none; color:#2b6cb0;">1. 핵심 진단 및 예상 순위</h4>
                             <div class="row-box"><div class="label">등록 키워드 :</div><div class="value">{current_keywords if current_keywords else "미등록"}</div></div>
-                            <div class="row-box"><div class="label">플레이스 점수 :</div><div class="value" style="color: #e53e3e; font-size: 17px; font-weight: 800;">{score}</div></div>
+                            <div class="row-box"><div class="label">플레이스 이슈 진단 :</div><div class="value" style="color: #e53e3e; font-size: 15px; font-weight: 800;">{issue_diagnosis}</div></div>
                             <div class="row-box"><div class="label">예상 노출 순위 :</div><div class="value" style="color: #e53e3e; font-size: 17px; font-weight: 800;">{rank}</div></div>
                         </div>
 
@@ -304,13 +304,7 @@ if submitted:
                                 <li>9. 월 2회 기본 수정 (사진, 정보, 새소식)</li>
                                 <li>10. Google, 카카오맵 정보 유지 및 관리</li>
                             </ul>
-                            
-                            <div style="margin-top: 20px; background-color: #ffffff; padding: 18px; border-radius: 10px; border: 2px dashed #38bdf8; text-align: center;">
-                                <span style="color: #94a3b8; font-size: 18px; font-weight: 600; text-decoration: line-through;">400만원(정상가)</span>
-                                <strong style="color: #e11d48; font-size: 24px; font-weight: 900; margin-left: 12px;">➔ 250만원</strong>
-                                <span style="color: #e11d48; font-size: 18px; font-weight: 700;"> (프로모션가)</span>
                             </div>
-                        </div>
 
                         <div style="background: #eff6ff; padding: 25px; border-radius: 10px; border: 1px solid #bfdbfe; text-align: center;">
                             <h3 style="color: #1e40af; font-weight: 800; margin-top:0; margin-bottom: 12px;">🚀 솔루션 적용 시 3개월 후 예상 매출</h3>
