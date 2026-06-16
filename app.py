@@ -172,6 +172,7 @@ if submitted:
                 st.success("✅ 종합 분석이 완료되었습니다. 아래에서 결과를 확인하세요.")
 
                 # [1] 플레이스 진단 리포트 HTML
+                # button에 data-html2canvas-ignore="true" 추가됨
                 html_report_1 = f"""
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
                 <div style="padding: 10px; display: flex; flex-direction: column; align-items: center; font-family: 'Malgun Gothic', sans-serif;">
@@ -210,7 +211,7 @@ if submitted:
                             <div class="row-box"><div class="label">상권 내 순위 진단 :</div><div class="value">{competition}</div></div>
                         </div>
                     </div>
-                    <button onclick="downloadImage1()" style="margin-top: 30px; padding: 15px 30px; font-size: 16px; font-weight: bold; color: #fff; background-color: #2d3748; border: none; border-radius: 8px; cursor: pointer;">
+                    <button data-html2canvas-ignore="true" onclick="downloadImage1()" style="margin-top: 30px; padding: 15px 30px; font-size: 16px; font-weight: bold; color: #fff; background-color: #2d3748; border: none; border-radius: 8px; cursor: pointer;">
                         📸 플레이스 진단 리포트 이미지(.png) 다운로드
                     </button>
                 </div>
@@ -228,6 +229,8 @@ if submitted:
                 """
 
                 # [2] 리뷰 평판 및 매출 예측 HTML
+                # 수정 1: 10가지 솔루션 div 닫기 태그(</div>) 추가됨
+                # 수정 2: 다운로드 버튼 컨테이너에 data-html2canvas-ignore="true" 추가됨
                 html_report_2 = f"""
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
                 <div style="padding: 10px; display: flex; flex-direction: column; align-items: center; background-color: #f8fafc;">
@@ -304,7 +307,7 @@ if submitted:
                                 <li>9. 월 2회 기본 수정 (사진, 정보, 새소식)</li>
                                 <li>10. Google, 카카오맵 정보 유지 및 관리</li>
                             </ul>
-                        <div style="background: #eff6ff; padding: 25px; border-radius: 10px; border: 1px solid #bfdbfe; text-align: center;">
+                        </div> <div style="background: #eff6ff; padding: 25px; border-radius: 10px; border: 1px solid #bfdbfe; text-align: center;">
                             <h3 style="color: #1e40af; font-weight: 800; margin-top:0; margin-bottom: 12px;">🚀 솔루션 적용 시 3개월 후 예상 매출</h3>
                             
                             <div style="font-size: 22px; font-weight: 800; color: #1e293b; margin-bottom: 25px; line-height: 1.5;">
@@ -318,7 +321,7 @@ if submitted:
                         </div>
                     </div>
                     
-                    <div style="display: flex; gap: 15px; margin-top: 10px; flex-wrap: wrap; justify-content: center;">
+                    <div data-html2canvas-ignore="true" style="display: flex; gap: 15px; margin-top: 10px; flex-wrap: wrap; justify-content: center;">
                         <button onclick="downloadPage2()" style="padding: 15px 25px; font-size: 16px; font-weight: 800; color: #fff; background-color: #059669; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
                             📸 평판 진단 리포트 다운로드
                         </button>
