@@ -297,15 +297,10 @@ if submitted:
                             <h3 style="color: #0284c7; font-size: 20px; font-weight: 900; margin-top: 0; margin-bottom: 15px; text-align: center;">💎 위드멤버 마케팅 솔루션 10가지</h3>
                             <ul class="ad-list">
                                 <li>1. 네이버 플레이스 세팅 및 관리 (SEO 최적화)</li>
-                                <li>2. 업체에 맞는 최적화 블로그 후보 검수 및 추천 리포트 제공</li>
-                                <li>3. 매장 또는 업체 홍보용 영상 콘텐츠 제작</li>
-                                <li>4. 제작 후 인스타그램 릴스, 유튜브 쇼츠 배포</li>
-                                <li>5. Google Business Profile 신규 등록 및 리뷰 작성 30건</li>
-                                <li>6. 카카오맵 리뷰 작성 30건</li>
-                                <li>7. 광고 운영 결과에 대한 월간 리포트 제공</li>
-                                <li>8. 네이버 플레이스 순위, 노출 변화 모니터링 및 유지 관리</li>
-                                <li>9. 월 2회 기본 수정 (사진, 정보, 새소식)</li>
-                                <li>10. Google, 카카오맵 정보 유지 및 관리</li>
+                                <li>2. 월 1~2회 기본 수정(새소식, 대표키워드, 플레이스 이미지)</li>
+                                <li>3. 업체에 맞는 최적화 블로그 후보 검수 및 추천 리포트 제공</li>
+                                <li>4. 매장 또는 업체 월 1회 홍보용 인스타 피드 베포 </li>
+                                <li>5. 네이버 플레이스 순위, 노출 변화 모니터링 및 유지 관리</li>
                             </ul>
                         </div> <div style="background: #eff6ff; padding: 25px; border-radius: 10px; border: 1px solid #bfdbfe; text-align: center;">
                             <h3 style="color: #1e40af; font-weight: 800; margin-top:0; margin-bottom: 12px;">🚀 솔루션 적용 시 3개월 후 예상 매출</h3>
