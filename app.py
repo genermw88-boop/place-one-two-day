@@ -301,7 +301,7 @@ if submitted:
                                 <li>3. 업체에 맞는 최적화 블로그 후보 검수 및 추천 리포트 제공</li>
                                 <li>4. 매장 또는 업체 월 1회 홍보용 인스타 인기 게시물 베포 </li>
                                 <li>5. 네이버 플레이스 순위, 노출 변화 모니터링 및 유지 관리</li>
-                                <li>6. 실사용자 패턴 맞춤형 유입 트래픽 작업을 통한 플레이스 순위 상승 </li>
+                                <li>6. 실사용자 패턴 맞춤형 유입 트래픽 작업을 통한 플레이스 순위 상승 변화 모니터링 및 유지 관리 </li>
                             </ul>
                         </div> <div style="background: #eff6ff; padding: 25px; border-radius: 10px; border: 1px solid #bfdbfe; text-align: center;">
                             <h3 style="color: #1e40af; font-weight: 800; margin-top:0; margin-bottom: 12px;">🚀 솔루션 적용 시 3개월 후 예상 매출</h3>
