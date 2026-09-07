@@ -121,7 +121,7 @@ if submitted:
             블로그 리뷰 수가 증가하고 퀄리티가 높아졌을 때 얻을 수 있는 개선점 및 기대효과를 줄바꿈 없이 하나의 문단으로 꽉 차게 작성해.
 
             ###PROFIT_PREDICT###
-            위드멤버의 10가지 마케팅 솔루션 적용 시 3개월 후 예상 매출 상승 범위를 현재 매장 상황에 맞게 AI가 진단해서 오직 "OO% ~ OO%" 형태의 퍼센트 수치만 출력해. (다른 설명 절대 금지)
+            위드멤버의 5가지 마케팅 솔루션 적용 시 3개월 후 예상 매출 상승 범위를 현재 매장 상황에 맞게 AI가 진단해서 오직 "OO% ~ OO%" 형태의 퍼센트 수치만 출력해. (다른 설명 절대 금지)
             출력 예시: 30% ~ 45%
 
             ###CONCLUSION###
@@ -294,7 +294,7 @@ if submitted:
                         </div>
 
                         <div style="background: #e0f2fe; padding: 25px; border-radius: 15px; border: 2px solid #7dd3fc; margin-bottom: 30px;">
-                            <h3 style="color: #0284c7; font-size: 20px; font-weight: 900; margin-top: 0; margin-bottom: 15px; text-align: center;">💎 위드멤버 마케팅 솔루션 10가지</h3>
+                            <h3 style="color: #0284c7; font-size: 20px; font-weight: 900; margin-top: 0; margin-bottom: 15px; text-align: center;">💎 위드멤버 마케팅 솔루션 5가지</h3>
                             <ul class="ad-list">
                                 <li>1. 네이버 플레이스 세팅 및 관리 (SEO 최적화)</li>
                                 <li>2. 월 1~2회 기본 수정(새소식, 대표키워드, 플레이스 이미지)</li>
@@ -306,7 +306,7 @@ if submitted:
                             <h3 style="color: #1e40af; font-weight: 800; margin-top:0; margin-bottom: 12px;">🚀 솔루션 적용 시 3개월 후 예상 매출</h3>
                             
                             <div style="font-size: 22px; font-weight: 800; color: #1e293b; margin-bottom: 25px; line-height: 1.5;">
-                                위드멤버의 10가지 마케팅 솔루션 적용 시 3개월 후<br>
+                                위드멤버의 5가지 마케팅 솔루션 적용 시 3개월 후<br>
                                 현재 대비 약 <span style="color: red; font-weight: 900; font-size: 28px;">{p_predict}</span> 상승 예상
                             </div>
                             
